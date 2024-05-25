@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS client(
     id SERIAL,
-    niu VARCHAR (13) NOT NULL
+    niu VARCHAR (13) NOT NULL,
     fullname VARCHAR (100) NOT NULL,
     address VARCHAR (100) NOT NULL,
     email VARCHAR (100) NOT NULL,
     PRIMARY KEY (id),
-    UNIQUE (nui)
+    UNIQUE (niu)
 
 );
 CREATE TABLE IF NOT EXISTS product(
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS product(
     brad VARCHAR (100) ,
     price DECIMAL   (7,2) DEFAULT 0.00,
     stock INT ,
-    PRIMARY KEY (id),
+    PRIMARY KEY (id)
 
 );
 CREATE TABLE IF NOT EXISTS invoice(
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS detail(
     quantity INT  NOT NULL,
     price DECIMAL (7,2),
     subtotal DECIMAL (7,2) GENERATED ALWAYS AS (price*quantity) STORED ,
-    voice_id INT,
+    invoice_id INT,
     product_id INT,
     PRIMARY KEY (id),
     FOREIGN KEY (invoice_id) REFERENCES invoice (id),

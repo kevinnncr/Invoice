@@ -10,12 +10,32 @@ class ProductService {
     @Autowired
     lateinit var productRepository: ProductRepository
 
-
-    fun list (): List<Product>{
+    fun list(): List<Product> {
         return productRepository.findAll()
     }
 
-    fun save(product: Product): Product{
+    fun getById(id: Long): Product {
+        return productRepository.findById(id).orElseThrow { RuntimeException("Product not found") }
+    }
+
+    fun save(product: Product): Product {
         return productRepository.save(product)
+    }
+
+    fun update(id: Long, product: Product): Product {
+        val existingProduct = productRepository.findById(id).orElseThrow { RuntimeException("Product not found") }
+        existingProduct.description = product.description
+        existingProduct.brand = product.brand
+        existingProduct.price = product.price
+        existingProduct.stock = product.stock
+        return productRepository.save(existingProduct)
+    }
+
+    fun delete(id: Long) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id)
+        } else {
+            throw RuntimeException("Product not found")
+        }
     }
 }

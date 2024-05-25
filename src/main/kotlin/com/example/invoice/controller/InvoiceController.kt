@@ -3,9 +3,7 @@ package com.example.invoice.controller
 import com.example.invoice.entity.Invoice
 import com.example.invoice.service.InvoiceService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/invoice")
@@ -15,12 +13,27 @@ class InvoiceController {
 
     @GetMapping
     fun list(): List<Invoice> {
-        val list = invoiceService.list()
-        return list
+        return invoiceService.list()
     }
 
-    @GetMapping
-    fun save(invoice: Invoice):Invoice{
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id: Long): Invoice {
+        return invoiceService.getById(id)
+    }
+
+    @PostMapping
+    fun save(@RequestBody invoice: Invoice): Invoice {
         return invoiceService.save(invoice)
+    }
+
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: Long, @RequestBody invoice: Invoice): Invoice {
+        return invoiceService.update(id, invoice)
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Long): String {
+        invoiceService.delete(id)
+        return "Invoice with id $id deleted successfully"
     }
 }

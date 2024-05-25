@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface DetailRepository: JpaRepository <Detail, Long?> {
 
-    fun finById (id : Long) : Detail?
 }
