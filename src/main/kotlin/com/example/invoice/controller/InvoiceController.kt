@@ -1,12 +1,13 @@
 package com.example.invoice.controller
 
 import com.example.invoice.entity.Invoice
+import com.example.invoice.entity.InvoiceView
 import com.example.invoice.service.InvoiceService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/invoice")
+@RequestMapping("/invoices")
 class InvoiceController {
     @Autowired
     lateinit var invoiceService: InvoiceService
@@ -15,10 +16,18 @@ class InvoiceController {
     fun list(): List<Invoice> {
         return invoiceService.list()
     }
+    @GetMapping("/with-client")
+    fun listView (): List<InvoiceView> {
+        return invoiceService.listView()
+    }
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long): Invoice {
         return invoiceService.getById(id)
+    }
+    @GetMapping("/{value}/get-total")
+    fun getTotal(@PathVariable value: Double): List<Invoice> {
+        return invoiceService.getTotal(value)
     }
 
     @PostMapping
