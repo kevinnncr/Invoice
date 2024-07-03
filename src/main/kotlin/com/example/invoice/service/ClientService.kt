@@ -20,6 +20,7 @@ class ClientService {
     }
 
     fun save(client: Client): Client {
+
         return clientRepository.save(client)
     }
 
@@ -40,4 +41,12 @@ class ClientService {
             throw RuntimeException("Client not found")
         }
     }
+    fun validateNiu(niu: String?): Boolean?{
+        if (niu == null) {
+            return false
+        }
+        val regex = Regex("^\\d{10}$")
+        return regex.matches(niu)
+    }
+
 }

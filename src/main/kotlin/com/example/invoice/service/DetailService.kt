@@ -39,4 +39,15 @@ class DetailService {
             throw RuntimeException("Detail not found")
         }
     }
+    fun validateQuantity(quantity: Long?): Boolean? {
+        if (quantity == null) {
+            return null
+        }
+        return try {
+            val number = quantity.toInt()
+            number > 0
+        } catch (e: NumberFormatException) {
+            false
+        }
+    }
 }

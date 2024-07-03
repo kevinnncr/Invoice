@@ -38,4 +38,15 @@ class ProductService {
             throw RuntimeException("Product not found")
         }
     }
+    fun validateStock(stock: Int?): Boolean? {
+        if (stock == null) {
+            return null
+        }
+        return try {
+            val number = stock.toInt()
+            number > 0
+        } catch (e: NumberFormatException) {
+            false
+        }
+    }
 }

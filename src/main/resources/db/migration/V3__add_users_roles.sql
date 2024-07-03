@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS roles (
     id SERIAL PRIMARY KEY,
-    rolee VARCHAR(25) NOT NULL,
+    roles VARCHAR(25) NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 
